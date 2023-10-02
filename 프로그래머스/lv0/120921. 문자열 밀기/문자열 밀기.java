@@ -2,10 +2,15 @@ class Solution {
     public int solution(String A, String B) {
         int lastIdx = A.length()-1;
         int count = 0;
+        String temp = A;
+        
         for(int i = 0; i < A.length(); i++){
-            if(A.equals(B)) break;
-            else { A = A.charAt(lastIdx) + A.substring(0,lastIdx); count++; }
+            if(temp.equals(B)) break;
+            StringBuilder sb = new StringBuilder();
+            sb.append(temp.charAt(lastIdx)).append(temp.substring(0,lastIdx));
+            temp = sb.toString();
+            count++;
         }
-        return A.equals(B) ? count : -1;
+        return temp.equals(B) ? count : -1;
     }
 }

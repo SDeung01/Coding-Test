@@ -7,10 +7,9 @@ class Solution {
         // 참석이 가능한 학생들을 등수가 높은 순서대로 정렬
         List<Student> attendList = IntStream.range(0,rank.length)
                 .mapToObj(id -> new Student(id, rank[id], attendance[id]))
-                .filter(student -> student.isAttendance() == true)
-                .sorted(Comparator.comparing(student -> student.getRank()))
+                .filter(Student::isAttendance)
+                .sorted(Comparator.comparing(Student::getRank))
                 .collect(Collectors.toList());
-        
         //정렬한 학생들 중 1~3등의 학생번호를 각 변수에 저장
         int a = attendList.get(0).getId();
         int b = attendList.get(1).getId();
@@ -37,5 +36,4 @@ class Student {
     public int getRank() { return rank; }
 
     public boolean isAttendance() { return attendance; }
-    
 }

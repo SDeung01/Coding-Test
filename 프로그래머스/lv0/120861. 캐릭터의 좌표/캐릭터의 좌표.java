@@ -21,8 +21,6 @@ class Solution {
             }
         }
         
-        
-        
         int[] coordinate = {x_point, y_point};
         
         return coordinate;

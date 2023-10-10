@@ -2,52 +2,53 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
-        int[] answer = new int[id_list.length];
-        ArrayList<User> users = new ArrayList<>();
-        HashMap<String,Integer> suspendedList = new HashMap<>(); //<이름>
-        HashMap<String,Integer> idIdx = new HashMap<String,Integer>(); // <이름, 해당 이름의 User 클래스 idx>
-        int idx = 0;
+        ArrayList<String[]> reportList = reportUser(report);
+        ArrayList<String> banedList = banedUser(reportList, k);
 
-        for(String name : id_list) {
-            idIdx.put(name,idx++);
-            users.add(new User(name));
-        }
-
-        for(String re : report){
-            String[] str = re.split(" ");
-            //suspendedCount.put(str[0], suspendedCount.getOrDefault(str[0],0)+1);
-            users.get( idIdx.get(str[0])).reportList.add(str[1]);
-            users.get( idIdx.get(str[1])).reportedList.add(str[0]);
-        }
-
-        for(User user : users){
-            if(user.reportedList.size() >= k)
-                suspendedList.put(user.name,1);
-        }
-
-         for(User user : users){
-             for(String nameReport : user.reportList){
-                 if(suspendedList.get(nameReport) != null){
-                     answer[idIdx.get(user.name)]++;
-                 }
-
-             }
-        }
-
-
-
-
-        return answer;
+        return sendingMail(id_list, reportList, banedList);
     }
-}
 
-class User{
-    String name;
-    HashSet<String> reportList;
-    HashSet<String> reportedList;
-    public User(String name){
-        this.name = name;
-        reportList = new HashSet<>();
-        reportedList = new HashSet<>();
+    // 리포트를 가져와 중복 신고 접수를 없애고 이용자 id와 신고된 id를 구분하여 배열로 저장, 그것을 요소로 하는 리스트를 반환
+    private ArrayList<String[]> reportUser(String[] report) {
+        HashSet<String> reportSet = new HashSet<>(Arrays.asList(report));
+        ArrayList<String[]> reportList = new ArrayList<>();
+
+        for (String s : reportSet) {
+            String[] id = s.split(" ");
+            reportList.add(id);
+        }
+        return reportList;
+    }
+
+    //신고된 id 중 정지 기준치를 넘긴 id를 리스트로 반환 
+    private ArrayList<String> banedUser(ArrayList<String[]> reportList, int k) {
+        ArrayList<String> banedId = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+
+        for (String[] reporter : reportList) {
+            map.put(reporter[1], map.getOrDefault(reporter[1], 0) + 1);
+        }
+
+        for (String key : map.keySet()) {
+            if (map.get(key) >= k) {
+                banedId.add(key);
+            }
+        }
+        return banedId;
+    }
+
+    // 이용자의 신고내역 중 정지된 id가 있으면 메일을 발송하고 그 횟수를 배열로 반환
+    private int[] sendingMail(String[] id_list, ArrayList<String[]> reportList, ArrayList<String> banedList) {
+        int[] sentMail = new int[id_list.length];
+        for (int i = 0; i < id_list.length; i++) {
+            String userId = id_list[i];
+            int mailCount = 0;
+            for (String[] reporter : reportList) {
+                if (userId.equals(reporter[0]) && banedList.contains(reporter[1])) {
+                    mailCount++;
+                }
+            } sentMail[i] = mailCount;
+        }
+        return sentMail;
     }
 }

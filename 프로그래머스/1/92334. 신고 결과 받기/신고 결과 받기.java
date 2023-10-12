@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
@@ -10,14 +11,10 @@ class Solution {
 
     // 리포트를 가져와 중복 신고 접수를 없애고 이용자 id와 신고된 id를 구분하여 배열로 저장, 그것을 요소로 하는 리스트를 반환
     private ArrayList<String[]> reportUser(String[] report) {
-        HashSet<String> reportSet = new HashSet<>(Arrays.asList(report));
-        ArrayList<String[]> reportList = new ArrayList<>();
 
-        for (String s : reportSet) {
-            String[] id = s.split(" ");
-            reportList.add(id);
-        }
-        return reportList;
+        List<String[]> reportList = Arrays.stream(report).distinct().map(user -> user.split(" ")).collect(Collectors.toList());
+
+        return (ArrayList<String[]>) reportList;
     }
 
     //신고된 id 중 정지 기준치를 넘긴 id를 리스트로 반환 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 class Solution {
     public int[] solution(String[] park, String[] routes) {
-        int[] nowPoint = {startPoint(park)[0], startPoint(park)[1]};
+        int[] nowPoint = startPoint(park);
 
         for(String[] order : nextOrder(routes)){
             int y_point = nowPoint[0];

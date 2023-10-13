@@ -3,7 +3,7 @@ import java.util.Map;
 
 class Solution {
     public String[] solution(String[] players, String[] callings) {
-        Map<String, Integer> playerMap = new HashMap<>(); // Map(선수이름, index)
+Map<String, Integer> playerMap = new HashMap<>(); // Map(선수이름, index)
         for(int i = 0; i < players.length; i++){
             playerMap.put(players[i],i);
         }
@@ -41,3 +41,4 @@ class Solution {
         }
     }
 }
+

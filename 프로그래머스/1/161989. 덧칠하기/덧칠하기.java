@@ -1,25 +1,13 @@
-import java.util.HashSet;
-import java.util.Set;
-
 class Solution {
     public int solution(int n, int m, int[] section) {
-        int count = 0;
-        Set<Integer> sectionSet = new HashSet<>();
-
-        for(int part : section){
-            sectionSet.add(part);
+        int roller = section[0];
+        int cnt = 1;
+        for(int i = 1; i < section.length; i++) {
+            if(roller + m - 1 < section[i]) {
+                cnt++;
+                roller = section[i];
+            }
         }
-
-        for(int part : section){
-            if(sectionSet.contains(part)){
-                for(int i = 0; i < m; i++){
-                    if(sectionSet.contains(part + i)) { 
-                        sectionSet.remove(part + i);
-                    }
-                } count++;
-            } if(sectionSet.isEmpty()) break;
-        }
-
-        return count;
+        return cnt;
     }
 }

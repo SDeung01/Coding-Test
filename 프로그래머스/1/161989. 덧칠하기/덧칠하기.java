@@ -13,12 +13,11 @@ class Solution {
         for(int part : section){
             if(sectionSet.contains(part)){
                 for(int i = 0; i < m; i++){
-                    if(sectionSet.contains(part + i)) {
+                    if(sectionSet.contains(part + i)) { 
                         sectionSet.remove(part + i);
                     }
                 } count++;
-            }
-            if(sectionSet.isEmpty()) break;
+            } if(sectionSet.isEmpty()) break;
         }
 
         return count;

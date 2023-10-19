@@ -32,5 +32,4 @@ class Solution {
                 bugerStk.pop();
             }
         }
-
 }

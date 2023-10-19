@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
         int[] sameCnt = checkNum(lottos, win_nums);
@@ -14,14 +12,12 @@ class Solution {
     private int[] checkNum(int[] lottos, int[] win_nums){
         int paintCnt = 0;
         int sameCnt = 0;
-        Arrays.sort(lottos);
-        Arrays.sort(win_nums);
-        for(int i = 0; i < lottos.length; i++){
-            if(lottos[i] == 0){
+        for(int myNum : lottos){
+            if(myNum == 0){
                 paintCnt++;
             } else {
-                for(int num : win_nums){
-                    if(lottos[i] == num) sameCnt++;
+                for(int winNum : win_nums){
+                    if(myNum == winNum) sameCnt++;
                 }
             }
         } return new int[] {paintCnt + sameCnt, sameCnt};

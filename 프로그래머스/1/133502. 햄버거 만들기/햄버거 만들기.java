@@ -1,35 +1,39 @@
-import java.util.*;
+import java.util.Stack;
+
 class Solution {
     public int solution(int[] ingredient) {
-        int ret=0;
-        int[] seq = new int[]{1,3,2,1};
+        int count = 0;
+        Stack<Integer> bugerStk = new Stack<>();
 
-        Stack<Integer> stack = new Stack<>();
-
-        for(int i=0 ; i<ingredient.length ; i++) {
-
-            stack.push(ingredient[i]);
-
-            if(stack.peek()==1 && stack.size()>=4) {
-
-                List<Integer> list = new ArrayList<>();
-
-                for(int j=0 ; j<seq.length ; j++) {
-                    if(stack.peek()!=seq[j]) {
-                        break;
-                    }
-                    list.add(stack.pop());
+        for(int ing_num : ingredient){
+            bugerStk.push(ing_num);
+            int lastIndex = bugerStk.size() - 1;
+            // 재료가 최소 4개는 있어야 버거를 만들 수 있다.
+            if(bugerStk.size() >= 4){
+                boolean check = canMake(bugerStk, lastIndex);
+                if(check) {
+                    makeBuger(bugerStk);
+                    count++;
                 }
-
-                if(list.size()==4) {
-                    ret++;
-                } else {
-                    for(int j=list.size()-1 ; j>=0 ; j--) {
-                        stack.push(list.get(j));
-                    }
-                }   
             }
         }
-        return ret;
+        return count;
     }
+
+    // 재료더미(스택)의 가장 위에 있는 재료부터 4개를 확인하여 적절한 재료라면 버거를 만들 수 있는지 여부를 반환한다.
+    private boolean canMake(Stack<Integer> bugerStk, int lastIndex){
+        int layer4 = (int) bugerStk.get(lastIndex);
+        int layer3 = (int) bugerStk.get(lastIndex - 1);
+        int layer2 = (int) bugerStk.get(lastIndex - 2);
+        int layer1 = (int) bugerStk.get(lastIndex - 3);
+        return layer1 == 1 && layer2 == 2 && layer3 == 3 && layer4 == 1;
+    }
+
+    // 버거를 만들기 위해 재료더미(스택)에서 재료 4개를 빼간다.
+    private void makeBuger(Stack<Integer> bugerStk) {
+            for(int i = 0; i < 4; i++){
+                bugerStk.pop();
+            }
+        }
+
 }

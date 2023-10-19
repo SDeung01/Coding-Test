@@ -1,35 +1,35 @@
-import java.util.Stack;
-
+import java.util.*;
 class Solution {
     public int solution(int[] ingredient) {
-        int count = 0;
-        Stack<Integer> bugerStk = new Stack<>();
+        int ret=0;
+        int[] seq = new int[]{1,3,2,1};
 
-        for(int ing_num : ingredient){
-            bugerStk.push(ing_num);
-            int lastIndex = bugerStk.size() - 1;
-            if(bugerStk.size() >= 4){
-                boolean check = canMake(bugerStk, lastIndex);
-                if(check) {
-                    makeBuger(bugerStk);
-                    count++;
+        Stack<Integer> stack = new Stack<>();
+
+        for(int i=0 ; i<ingredient.length ; i++) {
+
+            stack.push(ingredient[i]);
+
+            if(stack.peek()==1 && stack.size()>=4) {
+
+                List<Integer> list = new ArrayList<>();
+
+                for(int j=0 ; j<seq.length ; j++) {
+                    if(stack.peek()!=seq[j]) {
+                        break;
+                    }
+                    list.add(stack.pop());
                 }
+
+                if(list.size()==4) {
+                    ret++;
+                } else {
+                    for(int j=list.size()-1 ; j>=0 ; j--) {
+                        stack.push(list.get(j));
+                    }
+                }   
             }
         }
-        return count;
+        return ret;
     }
-
-    private boolean canMake(Stack<Integer> bugerStk, int lastIndex){
-        int layer4 = (int) bugerStk.get(lastIndex);
-        int layer3 = (int) bugerStk.get(lastIndex - 1);
-        int layer2 = (int) bugerStk.get(lastIndex - 2);
-        int layer1 = (int) bugerStk.get(lastIndex - 3);
-        return layer1 == 1 && layer2 == 2 && layer3 == 3 && layer4 == 1;
-    }
-
-    private void makeBuger(Stack<Integer> bugerStk) {
-            for(int i = 0; i < 4; i++){
-                bugerStk.pop();
-            }
-        }
 }

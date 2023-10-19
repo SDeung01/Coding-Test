@@ -1,34 +1,30 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
-        int[] sameCnt = checkNum(lottos, win_nums);
-        int maxSame = sameCnt[0];
-        int minSame = sameCnt[1];
-        
-        int[] ranking = {rank(maxSame), rank(minSame)};
-        
-        return ranking;
-    }
-    
-    private int[] checkNum(int[] lottos, int[] win_nums){
-        int paintCnt = 0;
-        int sameCnt = 0;
-        for(int myNum : lottos){
-            if(myNum == 0){
-                paintCnt++;
-            } else {
-                for(int winNum : win_nums){
-                    if(myNum == winNum) sameCnt++;
-                }
+        Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+        int zeroCount = 0;
+
+        for(int lotto : lottos) {
+            if(lotto == 0) {
+                zeroCount++;
+                continue;
             }
-        } return new int[] {paintCnt + sameCnt, sameCnt};
-    }
-    
-    private int rank(int count){
-        return count == 6 ? 1 :
-               count == 5 ? 2 :
-               count == 4 ? 3 :
-               count == 3 ? 4 :
-               count == 2 ? 5 :
-                            6 ;
+            map.put(lotto, true);
+        }
+
+
+        int sameCount = 0;
+        for(int winNum : win_nums) {
+            if(map.containsKey(winNum)) sameCount++;
+        }
+
+        int maxRank = 7 - (sameCount + zeroCount);
+        int minRank = 7 - sameCount;
+        if(maxRank > 6) maxRank = 6;
+        if(minRank > 6) minRank = 6;
+
+        return new int[] {maxRank, minRank};
     }
 }

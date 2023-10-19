@@ -28,9 +28,9 @@ class Solution {
     }
 
     private void makeBuger(Stack<Integer> bugerStk) {
-        for(int i = 0; i < 4; i++){
-            bugerStk.pop();
+            for(int i = 0; i < 4; i++){
+                bugerStk.pop();
+            }
         }
-    }
 
 }

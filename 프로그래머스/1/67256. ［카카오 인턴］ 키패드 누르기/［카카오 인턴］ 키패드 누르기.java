@@ -10,31 +10,28 @@ class Solution {
 
         for(int number : numbers){
             int [] now = location(keypad,number);
-
             if(number % 3 == 1){
                 sb.append("L");
-                prev_L = now;
             } else if (number % 3 == 0 && number != 0){
                 sb.append("R");
-                prev_R = now;
             } else {
                 int distance_L = distance(now, prev_L);
                 int distance_R = distance(now, prev_R);
                 if(distance_L < distance_R) {
                     sb.append("L");
-                    prev_L = now;
                 } else if (distance_L > distance_R) {
                     sb.append("R");
-                    prev_R = now;
                 } else {
                     if(hand.equals("left")) {
                         sb.append("L");
-                        prev_L = now;
                     } else {
                         sb.append("R");
-                        prev_R = now;
                     }
                 }
+            } if(sb.charAt(sb.length()-1) == 'L') {
+                prev_L = now;
+            } else {
+                prev_R = now;
             }
         }
         return sb.toString();
@@ -50,5 +47,5 @@ class Solution {
     private int distance(int[] now, int[] prev){
         return Math.abs(prev[0] - now[0]) + Math.abs(prev[1] - now[1]);
     }
-    
+
 }

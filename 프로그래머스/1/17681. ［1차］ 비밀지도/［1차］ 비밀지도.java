@@ -6,8 +6,7 @@ class Solution {
             String map2 = Integer.toBinaryString(arr2[i]);
             long longMap1 = Long.parseLong(map1);
             long longMap2 = Long.parseLong(map2);
-            String specifier = "%0"+n+"d";
-            String map = String.format(specifier, longMap1 + longMap2);
+            String map = String.format("%0"+n+"d", longMap1 + longMap2);
             map = map.replace("0"," ");
             map = map.replace("1","#");
             map = map.replace("2","#");

@@ -1,22 +1,19 @@
-import java.util.*;
-
 class Solution {
     public int[] solution(String[] wallpaper) {
-        List<Integer> listX = new ArrayList<>();
-        List<Integer> listY = new ArrayList<>();
-        
-        for(int i = 0; i < wallpaper.length; i++){
-            if(wallpaper[i].contains("#")){
-                listX.add(i);
-                listY.add(wallpaper[i].indexOf("#"));
-                if(wallpaper[i].indexOf("#") != wallpaper[i].lastIndexOf("#")){
-                    listY.add(wallpaper[i].lastIndexOf("#"));
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for(int i=0; i< wallpaper.length;i++ ){
+            for(int j=0; j<wallpaper[i].length();j++){
+                if(wallpaper[i].charAt(j)=='#'){
+                    minX = Math.min(minX,i);
+                    minY = Math.min(minY,j);
+                    maxX = Math.max(maxX,i);
+                    maxY = Math.max(maxY,j);
                 }
             }
         }
-        Collections.sort(listX);
-        Collections.sort(listY);
-        int[] answer = {listX.get(0), listY.get(0), listX.get(listX.size() - 1) + 1, listY.get(listY.size() - 1) + 1};
-        return answer;
+        return new int[]{minX,minY,maxX+1,maxY+1};
     }
 }

@@ -1,34 +1,30 @@
-import java.util.*;
+import java.util.HashSet;
 
 class Solution {
+
+
     public int[] solution(int n, String[] words) {
-        
-        int speak = 0;
-        String prevWord = "" + words[0].charAt(0);
-        Set<String> wordSet = new HashSet<>();
-        
-        for(String myWord : words){
-            int playerNo = (speak % n) + 1;
-            int turn = (speak / n) + 1;
-            
-            if(chainCheck(prevWord, myWord) && dupliCheck(wordSet, myWord)){
-                prevWord = myWord;
-                wordSet.add(myWord);
-                speak++;
-            } else {
-                return new int[]{playerNo, turn};
+      int[] answer = { 0, 0 };
+        char chEnd = words[0].charAt(words[0].length() - 1);
+        char chStart;
+        System.out.print(chEnd + " ");
+        HashSet<String> log = new HashSet<>();
+        log.add(words[0]);
+        for (int i = 1; i < words.length; i++) {
+            chStart = words[i].charAt(0);
+            log.add(words[i]);
+            if (chEnd != chStart || log.size() != i + 1) {
+                System.out.print(i + 1 + "!");
+                answer[0] = (i % n)+1;
+                answer[1] = (i / n) + 1;
+                break;
             }
+
+            chEnd = words[i].charAt(words[i].length() - 1);
+            System.out.print(chEnd + " ");
         }
-        return new int[]{0, 0};
-    }
-    
-    private boolean chainCheck(String prevWord, String myWord){
-        char lastCh = prevWord.charAt(prevWord.length()-1);
-        char startCh = myWord.charAt(0);
-        return lastCh == startCh;
-    }
-    
-    private boolean dupliCheck(Set<String> wordSet, String myWord){
-        return !wordSet.contains(myWord);
+        System.out.println();
+        System.out.println("(" + answer[0] + ", " + answer[1] + ")");
+        return answer;
     }
 }

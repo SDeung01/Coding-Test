@@ -8,19 +8,11 @@ class Solution {
             if(removedSkill.isEmpty()) {
                 count++;
                 continue;
-            } else {
-                StringBuilder sb = new StringBuilder();
-                // 선행스킬을 순서대로 하나씩 익힌 것과 removedSkill 이 일치하면 카운트
-                for(char ch : skill.toCharArray()){
-                    sb = sb.append(ch);
-                    if(sb.toString().equals(removedSkill)){
-                        count++;
-                        break;
-                    }
-                }
             }
-        }
-        
+            if(skill.indexOf(removedSkill) == 0) {
+                count++;
+            }
+        }        
         return count;
     }
     

@@ -20,11 +20,13 @@ class Solution {
             }
 
             @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                Point point = (Point) o;
-                return xPoint == point.xPoint && yPoint == point.yPoint;
+            public boolean equals(Object obj) {
+                if(obj instanceof Point){
+                    Point p = (Point) obj;
+                    if(this.xPoint == p.xPoint && this.yPoint == p.yPoint){
+                        return true;
+                    } else return false;
+                }else return false;
             }
 
             @Override

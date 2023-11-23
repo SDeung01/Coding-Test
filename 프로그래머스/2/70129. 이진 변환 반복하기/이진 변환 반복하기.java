@@ -4,12 +4,10 @@ class Solution {
         int conversionCnt = 0;
         
         while(!s.equals("1")){
-            int sLength = s.length();
-            s = s.replace("0","");
-            int convLength = s.length();
+            String temp = s.replace("0","");
             conversionCnt += 1;
-            zeroCnt += (sLength - convLength);
-            s = Integer.toBinaryString(s.length());
+            zeroCnt += (s.length() - temp.length());
+            s = Integer.toBinaryString(temp.length());
         }
         
         return new int[] {conversionCnt, zeroCnt};

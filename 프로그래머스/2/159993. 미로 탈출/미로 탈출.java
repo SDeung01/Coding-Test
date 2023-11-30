@@ -3,7 +3,7 @@ import java.util.Queue;
 
 class Solution {
     
-    static class Point{
+    class Point{
         private final int x;
         private final int y;
         private final int sec;

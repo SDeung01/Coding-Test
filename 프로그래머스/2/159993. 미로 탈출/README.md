@@ -1,10 +1,10 @@
 # [level 2] 미로 탈출 - 159993 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/159993#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/159993?language=java) 
 
 ### 성능 요약
 
-메모리: 76.8 MB, 시간: 0.35 ms
+메모리: 74.4 MB, 시간: 0.30 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2023년 12월 5일 0:21:56
+2023년 12월 5일 0:23:44
 
 ### 문제 설명
 

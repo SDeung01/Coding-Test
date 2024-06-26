@@ -13,12 +13,6 @@ class Solution {
             }
         }
         
-        // for(int i = 0; i < arr.length; i++){
-        //     if((arr[i] % totalLcm) > 0){
-        //         totalLcm = lcm(totalLcm, arr[i]);
-        //     }
-        // }
-        
         return totalLcm;
     }
     

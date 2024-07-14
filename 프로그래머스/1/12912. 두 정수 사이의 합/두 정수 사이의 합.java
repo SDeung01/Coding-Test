@@ -4,10 +4,10 @@ class Solution {
         if(a == b){
             return (long) a;
         }else {
-            int max = Math.max(a, b);
-            int min = Math.min(a, b);
+            long max = Math.max(a, b);
+            long min = Math.min(a, b);
             
-            for(int num = min; num <= max; num++){
+            for(long num = min; num <= max; num++){
                 sum += num;
             }
         }
